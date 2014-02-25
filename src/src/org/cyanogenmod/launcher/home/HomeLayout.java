@@ -14,12 +14,24 @@
  * limitations under the License.
  */
 
-package com.android.launcher.home;
+package org.cyanogenmod.launcher.home;
 
 import android.content.Context;
-import android.view.View;
+import android.util.AttributeSet;
+import android.widget.LinearLayout;
 
-public interface HomeStub {
+public class HomeLayout extends LinearLayout {
 
-    View createView(Context context);
+    public HomeLayout(Context context) {
+        super(context);
+    }
+
+    public HomeLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    public HomeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
 }
