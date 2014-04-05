@@ -79,13 +79,23 @@ public interface Home {
     public static final String PERMISSION_HOME_APP = "com.android.launcher.home.permissions.HOME_APP";
 
     // Notification flags
-    public static final int FLAG_NOTIFY_ON_RESUME = 0x0002;
-    public static final int FLAG_NOTIFY_ON_PAUSE = 0x0004;
-    public static final int FLAG_NOTIFY_ON_SHOW = 0x0008;
-    public static final int FLAG_NOTIFY_ON_SCROLL_PROGRESS_CHANGED = 0x0010;
-    public static final int FLAG_NOTIFY_ON_HIDE = 0x0020;
+    public static final int FLAG_NOTIFY_MASK = 0x0000;
+    public static final int FLAG_NOTIFY_ON_RESUME = FLAG_NOTIFY_MASK + 0x0002;
+    public static final int FLAG_NOTIFY_ON_PAUSE = FLAG_NOTIFY_MASK +  0x0004;
+    public static final int FLAG_NOTIFY_ON_SHOW = FLAG_NOTIFY_MASK + 0x0008;
+    public static final int FLAG_NOTIFY_ON_SCROLL_PROGRESS_CHANGED = FLAG_NOTIFY_MASK + 0x0010;
+    public static final int FLAG_NOTIFY_ON_HIDE = FLAG_NOTIFY_MASK + 0x0020;
     public static final int FLAG_NOTIFY_ALL = FLAG_NOTIFY_ON_RESUME | FLAG_NOTIFY_ON_PAUSE |
             FLAG_NOTIFY_ON_SHOW | FLAG_NOTIFY_ON_SCROLL_PROGRESS_CHANGED | FLAG_NOTIFY_ON_HIDE;
+
+    // Operation support flags
+    public static final int FLAG_OP_MASK = 0x1000;
+    public static final int FLAG_OP_CUSTOM_SEARCH = FLAG_OP_MASK + 0x0002;
+    public static final int FLAG_OP_ALL = FLAG_OP_CUSTOM_SEARCH;
+
+    // Search modes
+    public static final int MODE_SEARCH_TEXT = 0x0000;
+    public static final int MODE_SEARCH_VOICE = 0x0001;
 
     /**
      * Invoked the first time the <code>Home</code> app is created.<br/>
@@ -142,6 +152,17 @@ public interface Home {
     void onInvalidate(Context context);
 
     /**
+     * Invoked when the host launcher request enter in search mode.
+     * @param context the current {@link Context} of the host launcher.
+     * @param mode the requested search mode. Must be one of:
+     * <ul>
+     * <li>{@link #MODE_SEARCH_TEXT}: Textual mode</li>
+     * <li>{@link #MODE_SEARCH_VOICE}: Voice mode</li>
+     * </ul>
+     */
+    void onRequestSearch(Context context, int mode);
+
+    /**
      * Returns an instance of a {@link View} that holds the custom content to be displayed
      * by this <code>Home</code> app.
      * @param context the current {@link Context} of the host launcher.
@@ -149,7 +170,7 @@ public interface Home {
      * <code>com.android.launcher3.Launcher.QSBScroller</code>.<br/>
      * Be aware the the height layout of the returned should be defined as
      * {link {@link LayoutParams#WRAP_CONTENT}, so the view could be scrolled inside the
-     * custom content page. 
+     * custom content page.
      */
     View createCustomView(Context context);
 
@@ -160,7 +181,7 @@ public interface Home {
     String getName(Context context);
 
     /**
-     * Implementations should return the combination of notification flags that want listen to.
+     * Implementations should return the combination of notification flags that want to listen to.
      * @see #FLAG_NOTIFY_ON_RESUME
      * @see #FLAG_NOTIFY_ON_PAUSE
      * @see #FLAG_NOTIFY_ON_SHOW
@@ -168,5 +189,13 @@ public interface Home {
      * @see #FLAG_NOTIFY_ON_HIDE
      * @see #FLAG_NOTIFY_ALL
      */
-    int getNotifyFlags();
+    int getNotificationFlags();
+
+    /**
+     * Implementations should return the combination of operation flags that want they want
+     * to support to.
+     * @see #FLAG_OP_CUSTOM_SEARCH
+     * @see #FLAG_OP_ALL
+     */
+    int getOperationFlags();
 }
