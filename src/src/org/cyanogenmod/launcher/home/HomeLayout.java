@@ -23,15 +23,19 @@ import android.widget.LinearLayout;
 public class HomeLayout extends LinearLayout {
 
     public HomeLayout(Context context) {
-        super(context);
-    }
-
-    public HomeLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        this(context, null, 0);
     }
 
     public HomeLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public HomeLayout(final Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    @Override
+    protected void onFinishInflate() {
     }
 
 }

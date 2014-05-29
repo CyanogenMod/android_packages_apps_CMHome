@@ -19,23 +19,27 @@ package org.cyanogenmod.launcher.home;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 import com.android.launcher.home.Home;
 
 public class HomeStub implements Home {
-    
+
     private HomeLayout mHomeLayout;
+
+    private final AccelerateInterpolator mAlphaInterpolator;
+
+    public HomeStub() {
+        super();
+        mAlphaInterpolator = new AccelerateInterpolator();
+    }
 
     @Override
     public void onStart(Context context) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-        mHomeLayout = (HomeLayout)inflater.inflate(R.layout.home_layout, null);
     }
 
     @Override
     public void onDestroy(Context context) {
-        mHomeLayout.removeAllViews();
         mHomeLayout = null;
     }
 
@@ -49,37 +53,57 @@ public class HomeStub implements Home {
 
     @Override
     public void onShow(Context context) {
-        mHomeLayout.setAlpha(1.0f);
+        if (mHomeLayout != null) {
+            mHomeLayout.setAlpha(1.0f);
+        }
     }
 
     @Override
     public void onScrollProgressChanged(Context context, float progress) {
-        mHomeLayout.setAlpha(progress);
+        if (mHomeLayout != null) {
+            mHomeLayout.setAlpha(mAlphaInterpolator.getInterpolation(progress));
+        }
     }
 
     @Override
     public void onHide(Context context) {
-        mHomeLayout.setAlpha(0.0f);
+        if (mHomeLayout != null) {
+            mHomeLayout.setAlpha(0.0f);
+        }
     }
 
     @Override
     public void onInvalidate(Context context) {
+        if (mHomeLayout != null) {
+            mHomeLayout.removeAllViews();
+        }
+    }
+
+    @Override
+    public void onRequestSearch(Context context, int mode) {
+        
     }
 
     @Override
     public View createCustomView(Context context) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+        mHomeLayout = (HomeLayout)inflater.inflate(R.layout.home_layout, null);
         return mHomeLayout;
     }
 
     @Override
     public String getName(Context context) {
-        System.out.println("HomeStub:getName()");
         return "HomeStub";
     }
 
     @Override
-    public int getNotifyFlags() {
+    public int getNotificationFlags() {
         return Home.FLAG_NOTIFY_ALL;
     }
 
+    @Override
+    public int getOperationFlags() {
+        return Home.FLAG_OP_ALL;
+    }
 }
