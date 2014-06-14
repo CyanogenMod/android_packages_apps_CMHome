@@ -17,6 +17,7 @@
 package org.cyanogenmod.launcher.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -26,6 +27,7 @@ import com.android.launcher.home.Home;
 public class HomeStub implements Home {
 
     private HomeLayout mHomeLayout;
+    private static final String TAG = "HomeStub";
 
     private final AccelerateInterpolator mAlphaInterpolator;
 
