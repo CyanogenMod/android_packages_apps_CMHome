@@ -19,6 +19,8 @@ include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(call all-subdir-java-files)
 
+LOCAL_STATIC_JAVA_LIBRARIES := org.cyanogenmod.launcher.home
+
 LOCAL_PACKAGE_NAME := CMHome
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
