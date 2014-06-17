@@ -106,6 +106,6 @@ public class HomeStub implements Home {
 
     @Override
     public int getOperationFlags() {
-        return Home.FLAG_OP_ALL;
+        return Home.FLAG_OP_MASK;
     }
 }
