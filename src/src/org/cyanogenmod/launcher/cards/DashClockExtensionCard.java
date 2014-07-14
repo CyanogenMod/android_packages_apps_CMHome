@@ -102,6 +102,15 @@ public class DashClockExtensionCard extends Card {
             CardThumbnail thumbnail = new DashClockThumbnail(mContext);
             thumbnail.setCustomSource(new DashClockIconCardThumbnailSource(mContext, mExtensionWithData.listing.componentName, data));
             addCardThumbnail(thumbnail);
+        } else if (data.iconUri() != null || data.icon() > 0) {
+            CardThumbnail thumbnail = getCardThumbnail();
+            DashClockIconCardThumbnailSource thumbnailSource =
+                    (DashClockIconCardThumbnailSource) thumbnail.getCustomSource();
+            thumbnailSource.setExtensionData(data);
+            boolean shouldUpdate = thumbnailSource.shouldUpdateThumbnail();
+            if (shouldUpdate) {
+                addCardThumbnail(thumbnail);
+            }
         }
     }
 
@@ -198,6 +207,9 @@ public class DashClockExtensionCard extends Card {
         Context mContext;
         ComponentName mComponentName;
         ExtensionData mExtensionData;
+        // A String representing the source of this image, specific to dashclock extensions
+        // This String will represent either a URI or a resource id int.
+        private String mImageSource;
 
         public DashClockIconCardThumbnailSource(Context context,
                                                 ComponentName componentName,
@@ -206,22 +218,55 @@ public class DashClockExtensionCard extends Card {
             mComponentName = componentName;
             mExtensionData = extensionData;
         }
+
         @Override
         public String getTag() {
-            return mComponentName.flattenToShortString();
+            return getImageSource();
         }
 
         @Override
         public Bitmap getBitmap() {
-            Bitmap bitmapToReturn = null;
+            Bitmap bitmapToReturn;
             // As per the DashClock documentation, prefer the iconUri resource.
             if(mExtensionData.iconUri() != null) {
                 bitmapToReturn = getBitmapFromUri(mExtensionData.iconUri());
+                mImageSource = mExtensionData.iconUri().toString();
             } else {
                 bitmapToReturn = getIconFromResId(mExtensionData.icon());
+                mImageSource = Integer.toString(mExtensionData.icon());
             }
             // Return an all white (leaving alpha alone) version of the icon.
             return applyWhiteColorFilter(bitmapToReturn);
+        }
+
+        private void updateImageSource() {
+            // As per the DashClock documentation, prefer the iconUri resource.
+            if(mExtensionData.iconUri() != null) {
+                mImageSource = mExtensionData.iconUri().toString();
+            } else {
+                mImageSource = Integer.toString(mExtensionData.icon());
+            }
+        }
+
+        public String getImageSource() {
+            updateImageSource();
+            return mImageSource;
+        }
+
+        public void setExtensionData(ExtensionData extensionData) {
+            mExtensionData = extensionData;
+        }
+
+        public boolean shouldUpdateThumbnail() {
+            boolean hasNewUri = (mExtensionData.iconUri() != null
+                                 && !mExtensionData.iconUri().toString().equals(getImageSource()));
+
+            boolean hasNewResId = !hasNewUri
+                                  && mExtensionData.icon() > 0
+                                  && !Integer.toString(mExtensionData.icon()).
+                                                        equals(getImageSource());
+
+            return hasNewUri || hasNewResId;
         }
 
         private Bitmap getIconFromResId(int resId) {
