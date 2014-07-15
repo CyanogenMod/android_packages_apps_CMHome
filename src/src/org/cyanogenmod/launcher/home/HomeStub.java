@@ -35,6 +35,7 @@ import java.util.List;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
+import it.gmariotti.cardslib.library.view.listener.SwipeDismissListViewTouchListener;
 
 public class HomeStub implements Home {
 
@@ -338,6 +339,8 @@ public class HomeStub implements Home {
             if(cardListView != null) {
                 mCardArrayAdapter = new CMHomeCardArrayAdapter(mContext, cards);
                 mCardArrayAdapter.setEnableUndo(true, mHomeLayout);
+                mCardArrayAdapter.
+                        setSwipeDirection(SwipeDismissListViewTouchListener.SwipeDirection.RIGHT);
                 cardListView.setAdapter(mCardArrayAdapter);
             }
         }
