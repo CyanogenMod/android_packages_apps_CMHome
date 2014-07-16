@@ -61,6 +61,7 @@ public class DashClockExtensionCardProvider implements ICardProvider, ExtensionM
         for(ExtensionManager.ExtensionWithData extensionWithData :
                 mExtensionManager.getActiveExtensionsWithData()) {
             if(extensionWithData.latestData != null
+               && extensionWithData.latestData.visible()
                && !TextUtils.isEmpty(extensionWithData.latestData.status())) {
                 Card card = new DashClockExtensionCard(mContext,
                                                        extensionWithData,
@@ -79,9 +80,12 @@ public class DashClockExtensionCardProvider implements ICardProvider, ExtensionM
     }
 
     @Override
-    public List<Card> updateAndAddCards(List<Card> cards) {
+    public CardProviderUpdateResult updateAndAddCards(List<Card> cards) {
         List<ExtensionManager.ExtensionWithData> extensions
                 = mExtensionManager.getActiveExtensionsWithData();
+
+        // A List of cards to return that must be removed
+        List<Card> cardsToRemove = new ArrayList<Card>();
 
         // Create a map from ComponentName String -> extensionWithData
         HashMap<String, ExtensionManager.ExtensionWithData> map
@@ -96,9 +100,15 @@ public class DashClockExtensionCardProvider implements ICardProvider, ExtensionM
                         = (DashClockExtensionCard) card;
                 if(map.containsKey(dashClockExtensionCard
                         .getFlattenedComponentNameString())) {
-                    dashClockExtensionCard
-                            .updateFromExtensionWithData(map.get(dashClockExtensionCard
-                            .getFlattenedComponentNameString()));
+                    ExtensionManager.ExtensionWithData extensionWithData
+                            = map.get(dashClockExtensionCard
+                                      .getFlattenedComponentNameString());
+                    if (extensionWithData.latestData.visible()) {
+                        dashClockExtensionCard
+                                .updateFromExtensionWithData(extensionWithData);
+                    } else {
+                        cardsToRemove.add(dashClockExtensionCard);
+                    }
                     map.remove(dashClockExtensionCard.getFlattenedComponentNameString());
                 }
             }
@@ -113,11 +123,13 @@ public class DashClockExtensionCardProvider implements ICardProvider, ExtensionM
 
             if(extension.latestData != null && !TextUtils.isEmpty(extension.latestData.status())) {
                 Card card = new DashClockExtensionCard(mContext, extension, mHostActivityContext);
-                cardsToAdd.add(card);
+                if (extension.latestData.visible()) {
+                    cardsToAdd.add(card);
+                }
             }
         }
 
-        return cardsToAdd;
+        return new CardProviderUpdateResult(cardsToAdd, cardsToRemove);
     }
 
     @Override
@@ -144,7 +156,7 @@ public class DashClockExtensionCardProvider implements ICardProvider, ExtensionM
 
         for(ExtensionManager.ExtensionWithData extension : extensions) {
             if (extension.listing.componentName.flattenToString()
-                    .equals(id)) {
+                    .equals(id) && extension.latestData.visible()) {
                 return new DashClockExtensionCard(mContext, extension, mHostActivityContext);
             }
         }
