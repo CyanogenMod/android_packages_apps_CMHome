@@ -221,7 +221,7 @@ public class DashClockExtensionCard extends Card {
 
         @Override
         public String getTag() {
-            return getImageSource();
+            return mComponentName.flattenToShortString() + getImageSource();
         }
 
         @Override
