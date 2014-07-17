@@ -26,6 +26,7 @@ import com.android.launcher.home.Home;
 
 import org.cyanogenmod.launcher.cardprovider.DashClockExtensionCardProvider;
 import org.cyanogenmod.launcher.cardprovider.ICardProvider;
+import org.cyanogenmod.launcher.cardprovider.ICardProvider.CardProviderUpdateResult;
 import org.cyanogenmod.launcher.cards.SimpleMessageCard;
 
 import java.util.ArrayList;
@@ -346,7 +347,7 @@ public class HomeStub implements Home {
         }
     }
 
-    private class RefreshAllCardsTask extends AsyncTask<Void, Void, List<Card>> {
+    private class RefreshAllCardsTask extends AsyncTask<Void, Void, CardProviderUpdateResult> {
         private boolean mAddNew = false;
         private int mFinalCardCount = 0;
         private boolean mNoExtensionsCardExists = false;
@@ -356,26 +357,36 @@ public class HomeStub implements Home {
         }
 
         @Override
-        protected List<Card> doInBackground(Void... voids) {
+        protected CardProviderUpdateResult doInBackground(Void... voids) {
             List<Card> originalCards = mCardArrayAdapter.getCards();
 
-            List<Card> cardsToAdd = new ArrayList<Card>();
+            CardProviderUpdateResult updateResult = null;
             // Allow each provider to update it's cards
             for (ICardProvider cardProvider : mCardProviders) {
-                cardsToAdd = cardProvider.updateAndAddCards(originalCards);
+                updateResult = cardProvider.updateAndAddCards(originalCards);
             }
 
             mNoExtensionsCardExists = originalCards.contains(mNoExtensionsCard);
-            mFinalCardCount = originalCards.size() + cardsToAdd.size();
-            return cardsToAdd;
+            mFinalCardCount = originalCards.size();
+
+            if (updateResult != null) {
+                mFinalCardCount += updateResult.getCardsToAdd().size();
+                mFinalCardCount -= updateResult.getCardsToRemove().size();
+            }
+            return updateResult;
         }
 
         @Override
-        protected void onPostExecute(List<Card> cardsToAdd) {
-            super.onPostExecute(cardsToAdd);
+        protected void onPostExecute(CardProviderUpdateResult updateResult) {
+            super.onPostExecute(updateResult);
 
-            if(mAddNew) {
-                mCardArrayAdapter.addAll(cardsToAdd);
+            if (updateResult != null) {
+                if (mAddNew) {
+                    mCardArrayAdapter.addAll(updateResult.getCardsToAdd());
+                }
+                for (Card card : updateResult.getCardsToRemove()) {
+                    mCardArrayAdapter.remove(card);
+                }
             }
 
             if (mNoExtensionsCardExists && mFinalCardCount > 1) {

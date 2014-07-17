@@ -20,7 +20,7 @@ public interface ICardProvider {
      * @param cards Cards to update
      * @return A list of cards that must be added
      */
-    public List<Card> updateAndAddCards(List<Card> cards);
+    public CardProviderUpdateResult updateAndAddCards(List<Card> cards);
 
     /**
      * Given a card, update it to the freshest data.
@@ -41,5 +41,23 @@ public interface ICardProvider {
 
     public interface CardProviderUpdateListener {
         public void onCardProviderUpdate(String cardId);
+    }
+
+    public class CardProviderUpdateResult {
+        List<Card> mCardsToAdd;
+        List<Card> mCardsToRemove;
+
+        CardProviderUpdateResult(List<Card> cardsToAdd, List<Card> cardsToRemove) {
+            mCardsToAdd = cardsToAdd;
+            mCardsToRemove = cardsToRemove;
+        }
+
+        public List<Card> getCardsToAdd() {
+            return mCardsToAdd;
+        }
+
+        public List<Card> getCardsToRemove() {
+            return mCardsToRemove;
+        }
     }
 }
