@@ -23,5 +23,5 @@
   <string name="dashclock_card_expand_action">アクション</string>
   <string name="dashclock_card_expand_settings">設定</string>
   <string name="no_extensions_card_title">エクステンションを入れてみましょう！</string>
-  <string name="no_extensions_card_body">エクステンションを一つもインストールしていないようです。CMホームは現在DashClockエクステンションをサポートしているので、いくつか入れてここに戻ってきてください！</string>
+  <string name="no_extensions_card_body">エクステンションを1つもインストールしていないようです。CMホームは現在DashClockエクステンションをサポートしているので、いくつか入れてここに戻ってきてください！</string>
 </resources>
