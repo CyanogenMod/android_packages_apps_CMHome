@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-  <string name="app_name">CM hjem</string>
-  <string name="permission_label_read_extension_data">Be om DashClock utvidelsesdata</string>
-  <string name="permission_desc_read_extension_data">Tillater applikasjonen å be om DashClock utvidelsesdata</string>
-  <string name="dashclock_activity_not_found_toast_message">Utvidelsen til denne aktiviteten ble ikke funnet. Kontakt utvikler for å få mer informasjon.</string>
+  <string name="app_name">CM Launcher</string>
+  <string name="permission_label_read_extension_data">anmod om DashClock-udvidelsesdata</string>
+  <string name="permission_desc_read_extension_data">Tillader appen at anmode om DashClock-udvidelsesdata</string>
+  <string name="dashclock_activity_not_found_toast_message">Den tiltænkte aktivitet for denne udvidelse blev ikke fundet. Kontakt udvikleren for mere info.</string>
   <string name="dashclock_card_expand_action">Handling</string>
-  <string name="dashclock_card_expand_settings">Innstillinger</string>
-  <string name="no_extensions_card_title">Få noen utvidelser!</string>
-  <string name="no_extensions_card_body">Ser ut som du ikke har noen installerte utvidelser. CM hjem støtter for tiden DashClock utvidelser, så gå å skaff noen og sjekk tilbake her!</string>
+  <string name="dashclock_card_expand_settings">Indstillinger</string>
+  <string name="no_extensions_card_title">Hent nogle udvidelser!</string>
+  <string name="no_extensions_card_body">Det ser ud, som om du ikke har installeret nogen udvidelser. CM Launcher understøtter i øjeblikket DashClock-udvidelser, så hent nogle og gå tilbage hertil!</string>
 </resources>
