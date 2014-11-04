@@ -16,7 +16,9 @@
      limitations under the License.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-  <string name="dashclock_card_expand_action">操作</string>
-  <string name="dashclock_card_expand_settings">設定</string>
-  <string name="no_extensions_card_title">獲得更多擴充套件！</string>
+  <string name="app_name">CM Əsas Ekran</string>
+  <string name="permission_label_read_extension_data">DashClock əlavə verilənini istə</string>
+  <string name="permission_desc_read_extension_data">Tətbiqetmənin DashClock əlavə verilənini istəməsinə icazə verər</string>
+  <string name="dashclock_card_expand_action">Hərəkət</string>
+  <string name="dashclock_card_expand_settings">Tənzimləmələr</string>
 </resources>

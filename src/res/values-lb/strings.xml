@@ -20,4 +20,5 @@
   <string name="permission_label_read_extension_data">DashClock-Erweiderungsdaten ufroen</string>
   <string name="dashclock_card_expand_action">Aktioun</string>
   <string name="dashclock_card_expand_settings">Astellungen</string>
+  <string name="no_extensions_card_title">Méi Erweiderungen eroflueden!</string>
 </resources>
