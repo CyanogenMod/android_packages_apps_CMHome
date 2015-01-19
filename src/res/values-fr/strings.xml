@@ -17,8 +17,6 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
   <string name="app_name">CM Home</string>
-  <string name="permission_label_read_extension_data">Demander des données d\'extension DashClock</string>
-  <string name="permission_desc_read_extension_data">Autoriser l\'application à demander des données d\'extension DashClock</string>
   <string name="dashclock_activity_not_found_toast_message">L\'activité prévue pour cette extension n\'a pas été trouvée. Veuillez contacter le développeur pour plus d\'informations.</string>
   <string name="dashclock_card_expand_action">Action</string>
   <string name="dashclock_card_expand_settings">Paramètres</string>
