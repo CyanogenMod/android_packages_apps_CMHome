@@ -18,4 +18,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
   <string name="app_name">সিএম হোম</string>
   <string name="dashclock_card_expand_action">অ্যাকশন</string>
+  <string name="dashclock_card_expand_settings">রুপান্তর নির্ধারণ</string>
+  <string name="no_extensions_card_title">কিছু এক্সটেনশন পান!</string>
 </resources>

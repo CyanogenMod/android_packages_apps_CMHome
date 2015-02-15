@@ -19,6 +19,9 @@
   <string name="app_name">CM Əsas Ekran</string>
   <string name="permission_label_read_extension_data">DashClock əlavə verilənini istə</string>
   <string name="permission_desc_read_extension_data">Tətbiqetmənin DashClock əlavə verilənini istəməsinə icazə verər</string>
+  <string name="dashclock_activity_not_found_toast_message">Bu əlavə üçün nəzərdə tutulan Fəaliyyət tapılmadı. Ətraflı məlumat üçün zəhmət olmasa tərtibatçı ilə əlaqə saxlayın.</string>
   <string name="dashclock_card_expand_action">Hərəkət</string>
   <string name="dashclock_card_expand_settings">Tənzimləmələr</string>
+  <string name="no_extensions_card_title">Bir-iki əlavə əldə edin!</string>
+  <string name="no_extensions_card_body">Yüklənmiş əlavəniz yoxdur. CM Əsas Ekranı hazırda DashClock əlavələrini dəstəkləyir, bir-ikisini əldə edib geri qayıdın!</string>
 </resources>
