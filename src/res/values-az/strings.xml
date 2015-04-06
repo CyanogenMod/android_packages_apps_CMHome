@@ -17,7 +17,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
   <string name="app_name">CM Əsas Ekran</string>
-  <string name="permission_label_read_extension_data">DashClock əlavə verilənini sorğula</string>
+  <string name="permission_label_read_extension_data">DashClock əlavə verilənlərini sorğula</string>
   <string name="permission_desc_read_extension_data">Tətbiqetmənin DashClock əlavə verilənlərini sorğulamasına icazə verər</string>
   <string name="dashclock_activity_not_found_toast_message">Bu əlavə üçün nəzərdə tutulan Fəaliyyət tapılmadı. Ətraflı məlumat üçün zəhmət olmasa tərtibatçı ilə əlaqə saxlayın.</string>
   <string name="dashclock_card_expand_action">Hərəkət</string>
