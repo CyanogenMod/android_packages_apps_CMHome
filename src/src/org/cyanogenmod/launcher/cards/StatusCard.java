@@ -1,6 +1,7 @@
 package org.cyanogenmod.launcher.cards;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class StatusCard extends ApiCard {
         TextView status = (TextView)view.findViewById(R.id.status_card_status_text);
 
         if (status != null) {
-            status.setText(getStatus());
+            status.setText(Html.fromHtml(getStatus()));
         }
     }
 }
