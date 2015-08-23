@@ -23,5 +23,5 @@
   <string name="dashclock_card_expand_action">Acțiune</string>
   <string name="dashclock_card_expand_settings">Setări</string>
   <string name="no_extensions_card_title">Obține extensii!</string>
-  <string name="no_extensions_card_body">Se pare ca nu ai nicio extensie instalată. CM Home acceptă în prezent extensii DashClock, instalați extensii și verificați din nou aici!</string>
+  <string name="no_extensions_card_body">Se pare că nu aveți nicio extensie instalată. CM Home acceptă în prezent extensii DashClock, deci instalați extensii și verificați din nou aici!</string>
 </resources>
